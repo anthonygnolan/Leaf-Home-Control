@@ -5,6 +5,10 @@ VisualStudioVersion = 15.0.28307.757
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leaf.Shared", "Leaf.Shared\Leaf.Shared.csproj", "{CB05AF38-B833-4774-9BC0-93F19BC63928}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leaf.AppService", "..\Leaf Home Control (App Service)\Leaf.AppService\Leaf.AppService.csproj", "{B0EE2037-7A8A-493B-97F0-F07F8B4C6A59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Leaf.PhilipsHue", "..\Leaf Home Control (Philips Hue)\Leaf.PhilipsHue\Leaf.PhilipsHue.csproj", "{2338B917-2D44-46FB-9CD1-0B4C2EAF23D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{CB05AF38-B833-4774-9BC0-93F19BC63928}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB05AF38-B833-4774-9BC0-93F19BC63928}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB05AF38-B833-4774-9BC0-93F19BC63928}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0EE2037-7A8A-493B-97F0-F07F8B4C6A59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0EE2037-7A8A-493B-97F0-F07F8B4C6A59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0EE2037-7A8A-493B-97F0-F07F8B4C6A59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0EE2037-7A8A-493B-97F0-F07F8B4C6A59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2338B917-2D44-46FB-9CD1-0B4C2EAF23D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2338B917-2D44-46FB-9CD1-0B4C2EAF23D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2338B917-2D44-46FB-9CD1-0B4C2EAF23D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2338B917-2D44-46FB-9CD1-0B4C2EAF23D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
