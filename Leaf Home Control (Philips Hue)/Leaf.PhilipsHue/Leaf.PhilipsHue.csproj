@@ -34,13 +34,41 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Folder Include="APIs\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="Images\" />
-    <Folder Include="Models\" />
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\portable-net45+win8+wp8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIs\Capabilities.cs" />
+    <Compile Include="APIs\Configuration.cs" />
+    <Compile Include="APIs\Groups.cs" />
+    <Compile Include="APIs\Info.cs" />
+    <Compile Include="APIs\Lights.cs" />
+    <Compile Include="APIs\Rules.cs" />
+    <Compile Include="APIs\Scenes.cs" />
+    <Compile Include="APIs\Schedules.cs" />
+    <Compile Include="APIs\Sensors.cs" />
+    <Compile Include="Helpers\BridgeHelper.cs" />
+    <Compile Include="Helpers\ErrorHelper.cs" />
+    <Compile Include="Helpers\NewBridgeHelper.cs" />
+    <Compile Include="Helpers\RESTHelper.cs" />
+    <Compile Include="Models\Bridge.cs" />
+    <Compile Include="Models\Capability.cs" />
+    <Compile Include="Models\Config.cs" />
+    <Compile Include="Models\Group.cs" />
+    <Compile Include="Models\Light.cs" />
+    <Compile Include="Models\Rule.cs" />
+    <Compile Include="Models\Scene.cs" />
+    <Compile Include="Models\Schedule.cs" />
+    <Compile Include="Models\Sensor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\BSB002.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Images\pushlink_bridgev2.pdf" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>
