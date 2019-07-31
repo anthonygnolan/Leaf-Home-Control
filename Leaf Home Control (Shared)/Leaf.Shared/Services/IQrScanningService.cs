@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace Leaf.Shared.Services
 {
-    class IQrScanningService
+    public interface IQrScanningService
     {
+        Task<string> ScanAsync();
     }
 }

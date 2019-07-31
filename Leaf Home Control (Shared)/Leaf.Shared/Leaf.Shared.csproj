@@ -34,7 +34,6 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
-    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Common\CommandManager.cs" />
@@ -63,6 +62,23 @@
     <Compile Include="ViewModels\DevicesViewModel.cs" />
     <Compile Include="ViewModels\HomesViewModel.cs" />
     <Compile Include="ViewModels\RoomsViewModel.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\anon.png" />
+    <Content Include="Images\ApplicationLogo.png" />
+    <Content Include="Images\BlackBackground.jpg" />
+    <Content Include="Images\DefaultAccountPicture.png" />
+    <Content Include="Images\DefaultHomeBackground.jpg" />
+    <Content Include="Images\DefaultRoomBackground.jpg" />
+    <Content Include="Images\Family.png" />
+    <Content Include="Images\HomeBackground1.jpg" />
+    <Content Include="Images\HomeBackground2.jpg" />
+    <Content Include="Images\HomeBackground3.jpg" />
+    <Content Include="Images\Hue.png" />
+    <Content Include="Images\LightingColourPicker.png" />
+    <Content Include="Images\mappin.png" />
+    <Content Include="Images\MicrosoftLogo.png" />
+    <Content Include="Images\PhilipsHueLogo.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

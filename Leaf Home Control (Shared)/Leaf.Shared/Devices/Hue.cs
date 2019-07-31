@@ -6,7 +6,22 @@ using System.Threading.Tasks;
 
 namespace Leaf.Shared.Devices
 {
-    class Hue
+    public class Hue
     {
+        public static async Task<string[]> FindBridge()
+        {
+            var t = await PhilipsHue.Helpers.BridgeHelper.FindBridgeAsync();
+            if (t != null)
+            {
+                string[] result = new string[2];
+                result[0] = t.name;
+                result[1] = t.ipaddress;
+                return result;
+            }
+            else
+            {
+                return null;
+            }
+        }
     }
 }
