@@ -1,12 +1,21 @@
-﻿using System;
+﻿using Leaf.Shared.ViewModels;
+using Leaf.Windows.Services;
+using Leaf.Windows.Views;
+using Microsoft.Identity.Client;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.System.Profile;
+using Windows.UI;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -22,6 +31,15 @@ namespace Leaf.Windows
     /// </summary>
     sealed partial class App : Application
     {
+        const string StoredAccountKey = "accountid";
+
+        public static HomesViewModel HomesViewModel = new HomesViewModel();
+        public static RoomsViewModel RoomsViewModel = new RoomsViewModel();
+
+        private static string ClientId = "0c60be8d-4f18-4eeb-a787-94637381d172";
+
+        //public static PublicClientApplication PublicClientApp = new PublicClientApplicationBuilder();
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -39,38 +57,78 @@ namespace Leaf.Windows
         /// <param name="e">Details about the launch request and process.</param>
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
+            if (ApplicationData.Current.LocalSettings.Values.ContainsKey(StoredAccountKey))
             {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
+                ActivationService.Initalise();
 
-                rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                // Do not repeat app initialization when the Window already has content,
+                // just ensure that the window is active
+                if (!(Window.Current.Content is AppShell shell))
                 {
-                    //TODO: Load state from previously suspended application
+                    // Create a AppShell to act as the navigation context and navigate to the first page
+                    shell = new AppShell();
+
+                    shell.AppFrame.NavigationFailed += OnNavigationFailed;
+
+                    if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                    {
+                        //ApplicationData.Current.LocalSettings.Values["PreviouslyLaunched"] = false;
+                        //TODO: Load state from previously suspended application
+                    }
                 }
 
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
-            }
+                // Place our app shell in the current Window
+                Window.Current.Content = shell;
 
-            if (e.PrelaunchActivated == false)
-            {
-                if (rootFrame.Content == null)
+                if (shell.AppFrame.Content == null)
                 {
-                    // When the navigation stack isn't restored navigate to the first page,
-                    // configuring the new page by passing required information as a navigation
-                    // parameter
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+
+                    shell.AppFrame.Navigate(typeof(Views.Overview.MainPage));
                 }
-                // Ensure the current window is active
-                Window.Current.Activate();
             }
+            else
+            {
+
+                if (!(Window.Current.Content is Frame rootFrame))
+                {
+                    rootFrame = new Frame();
+
+                    rootFrame.NavigationFailed += OnNavigationFailed;
+
+                    if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                    {
+                        //TODO: Load state from previously suspended application
+                    }
+
+                    Window.Current.Content = rootFrame;
+                }
+
+                if (e.PrelaunchActivated == false)
+                {
+                    if (rootFrame.Content == null)
+                    {
+                        rootFrame.Navigate(typeof(Views.SignIn.MainPage), e.Arguments);
+                    }
+                }
+            }
+            // Ensure the current window is active
+            Window.Current.Activate();
+        }
+
+        protected override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                ProtocolActivatedEventArgs protocolArgs = args as ProtocolActivatedEventArgs;
+                AppShell content = Window.Current.Content as AppShell;
+                if (content.AppFrame.Content.GetType() == typeof(Views.Family.TestPage))
+                {
+                    content.AppFrame.Navigate(typeof(Views.Family.TestPage), protocolArgs.Uri);
+                }
+            }
+            Window.Current.Activate();
+            base.OnActivated(args);
         }
 
         /// <summary>

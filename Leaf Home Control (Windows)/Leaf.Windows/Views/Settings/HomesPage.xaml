@@ -1,0 +1,138 @@
+﻿<Page
+    x:Class="Leaf.Windows.Views.Settings.HomesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Leaf.Windows.Views.Settings"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:data="using:Leaf.Shared.Models"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1080" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="AppHeaderPanel.Visibility" Value="Collapsed"/>
+                        <Setter Target="Header.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="720" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="AppHeaderPanel.Visibility" Value="Collapsed"/>
+                        <Setter Target="Header.Visibility" Value="Visible"/>
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState>
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="AppHeaderPanel.Visibility" Value="Visible"/>
+                        <Setter Target="Header.Visibility" Value="Collapsed"/>
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <RelativePanel Name="AppHeaderPanel" Height="50">
+
+            <Rectangle Name="Top1"
+                       Height="50"
+                       Width="1"
+                       RelativePanel.AlignLeftWithPanel="True"
+                       Fill="{ThemeResource SystemChromeMediumColor}"/>
+            <Rectangle Name="Top2"
+                       Height="50"
+                       RelativePanel.RightOf="Top1"
+                       RelativePanel.LeftOf="Top3"
+                       Fill="{ThemeResource SystemChromeMediumColor}"/>
+            <Rectangle Name="Top3"
+                       Height="50"
+                       Width="1"
+                       RelativePanel.AlignRightWithPanel="True"
+                       Fill="{ThemeResource SystemChromeMediumColor}"/>
+
+            <TextBlock Name="AppHeader"
+                       FontSize="16"
+                       Text="HOMES"
+                       FontWeight="Bold"
+                       RelativePanel.AlignVerticalCenterWithPanel="True"
+                       Margin="56,0,0,0"/>
+
+        </RelativePanel>
+
+        <TextBlock  Name="Header" FontFamily="Segoe UI" FontWeight="Light" Margin="20,10" FontSize="32" Text="Homes"/>
+
+        <Grid Grid.Row="1">
+            <ListView Name="HomesListView"
+                      SelectionMode="None"
+                      ItemsSource="{x:Bind _homesViewModel.Homes}"
+                      IsItemClickEnabled="True"
+                      ItemClick="HomesMenu_ItemClick">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:DataType="data:Home">
+                        <StackPanel Orientation="Horizontal"  VerticalAlignment="Center" Width="200" Height="72" Margin="0,0,0,0">
+
+                            <Ellipse Name="HomeImage"
+                                    Height="48" Width="48"
+                                    HorizontalAlignment="Right"
+                                    Margin="0,0,20,0" >
+                                <Ellipse.Fill>
+                                    <ImageBrush Stretch="UniformToFill" ImageSource="{x:Bind BackgroundUri}"/>
+                                </Ellipse.Fill>
+
+                            </Ellipse>
+
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Left">
+                                <TextBlock Text="{x:Bind Name}"
+                                           FontSize="16"
+                                           VerticalAlignment="Center"/>
+                                <TextBlock Text="{x:Bind Location}"
+                                           FontSize="12"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+        <ContentDialog x:Name="HomeName" 
+                       PrimaryButtonText="done"
+                       SecondaryButtonText="cancel"
+                       VerticalAlignment="Center"
+                       Grid.Row="1">
+
+            <ContentDialog.TitleTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="ms-appx:///Assets/Images/LeafLogo.png" Width="40" Height="40" />
+                        <TextBlock Text="Add New Home"
+                                   VerticalAlignment="Center"
+                                   Margin="10"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ContentDialog.TitleTemplate>
+            <StackPanel>
+                <TextBlock Grid.Row="0"
+                           VerticalAlignment="Center"
+                           Text="Please enter the name of your home"/>
+
+                <TextBox Name="HomeName_tb" Width="200"></TextBox>
+            </StackPanel>
+        </ContentDialog>
+    </Grid>
+
+</Page>

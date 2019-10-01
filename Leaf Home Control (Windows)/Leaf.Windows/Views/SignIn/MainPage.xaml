@@ -1,0 +1,146 @@
+﻿<Page
+    x:Class="Leaf.Windows.Views.SignIn.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Leaf.Windows.Views.SignIn"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="Page_Loaded"
+    xmlns:models="using:Leaf.Shared.Models"
+    xmlns:controls="using:Leaf.Windows.Controls"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Name="Loading_SP" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <ProgressRing Name="Loading_PR"
+                          IsActive="True"/>
+            <TextBlock x:Name="LoadingHeader" Text="Getting things ready..."/>
+        </StackPanel>
+
+        <StackPanel x:Name="OutputPanel" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+            <Ellipse Height="100" Width="100" x:Name="ProfileImage" Margin="40"/>
+            <TextBlock x:Name="ResultsText" HorizontalAlignment="Center" FontSize="28" />
+            <Button x:Name="Continue_button" Margin="0,40,0,15" Content="Continue" HorizontalAlignment="Center" IsDoubleTapEnabled="False" Click="Continue_button_Click"/>
+            <TextBlock Text="Not you?" Margin="0,20,0,0" HorizontalAlignment="Center" />
+            <HyperlinkButton x:Name="OtherAccount" Margin="0,20,0,0" Content="Sign in with a different account" HorizontalAlignment="Center" Click="SignIn_button_Click"/>
+        </StackPanel>
+
+        <FlipView x:Name="Instructions" Grid.RowSpan="2"
+                  Background="Transparent"
+                  ItemsSource="{x:Bind controls:NavMenuFlipView.startupFlipView}">
+            <FlipView.ItemTemplate>
+                <DataTemplate x:DataType="models:NavigationMenuItem">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" >
+                        <Grid>
+                            <Ellipse Height="100" Width="100" Fill="{ThemeResource HyperlinkButtonForeground}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <Ellipse Height="96" Width="96" Fill="{ThemeResource ApplicationPageBackgroundThemeBrush}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            <TextBlock Text="{x:Bind Symbol}"
+                                           FontFamily="Segoe MDL2 Assets"
+                                           VerticalAlignment="Center"
+                                       HorizontalAlignment="Center"
+                               FontSize="32"
+                               Foreground="{ThemeResource HyperlinkButtonForeground}"/>
+                        </Grid>
+                        <TextBlock Text="{Binding Label}" FontFamily="Segoe UI" FontSize="26.667" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Description}" FontFamily="Segoe UI"/>
+                        <Button x:Name="Next_bt" 
+                    Margin="0,40,0,15" 
+                    Content="{x:Bind Arguments}" 
+                    HorizontalAlignment="Center" 
+                    IsDoubleTapEnabled="False" 
+                    Click="Next_bt_Click"/>
+                    </StackPanel>
+                </DataTemplate>
+            </FlipView.ItemTemplate>
+        </FlipView>
+
+        <StackPanel Name="GetStarted_sp"
+                    ScrollViewer.IsHorizontalRailEnabled="True"
+                    Grid.RowSpan="2"
+                    Visibility="Collapsed"
+                    VerticalAlignment="Center" 
+                    HorizontalAlignment="Center">
+
+            <Image Height="100" 
+                   Width="100"
+                   Source="ms-appx:///Leaf.Shared/Images/ApplicationLogo.png"/>
+
+            <TextBlock Name="SignInHeader"
+                       TextAlignment="Center"
+                       Text="Welcome to"
+                       FontSize="28"/>
+
+            <TextBlock TextAlignment="Center"
+                       Text="Leaf Home Control"
+                       FontSize="28"/>
+
+            <Button x:Name="SignInWindows_button" 
+                    Margin="0,40,0,15" 
+                    Content="Sign In With Windows" 
+                    HorizontalAlignment="Center" 
+                    IsDoubleTapEnabled="False" 
+                    Click="SignIn_button_Click"/>
+
+            <Button x:Name="SignInApp_button" 
+                    Margin="0,40,0,15" 
+                    Content="Sign In With Microsoft Account" 
+                    HorizontalAlignment="Center" 
+                    IsDoubleTapEnabled="False" 
+                    Click="SignInApp_button_Click"/>
+
+            <HyperlinkButton x:Name="Skip" 
+                             Margin="0,20,0,0" 
+                             Content="Skip" 
+                             HorizontalAlignment="Center" 
+                             Click="Skip_Click"/>
+        </StackPanel>
+
+        <StackPanel Name="Syncing_SP" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+            <ProgressRing Name="Syncing_PR"/>
+            <TextBlock x:Name="SyncingHeader" Text="Getting set up." HorizontalAlignment="Center"/>
+            <TextBlock x:Name="SyncingHeade" Text="We'll be done in a moment."/>
+        </StackPanel>
+
+        <StackPanel Name="Select_SP" VerticalAlignment="Center" HorizontalAlignment="Center" Visibility="Collapsed">
+            <Button Name="CreateHome" Content="Create a new home" Click="CreateHome_Click"/>
+            <Button Name="JoinHome" Content="Join a home" Click="JoinHome_Click"/>
+        </StackPanel>
+
+        <ContentDialog x:Name="SignIn_ContentDialogue"
+                       VerticalAlignment="Center"
+                       PrimaryButtonText="sign in"
+                       SecondaryButtonText="skip">
+            <ContentDialog.TitleTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+
+                        <Image Height="28" 
+                               Width="28"
+                               Source="ms-appx:///Leaf.Shared/Images/ApplicationLogo.png"/>
+
+                        <TextBlock Text="Are you sure?"
+                                   VerticalAlignment="Center"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ContentDialog.TitleTemplate>
+            <Grid>
+
+                <StackPanel>
+
+                    <Rectangle Height="1"
+                               HorizontalAlignment="Stretch" 
+                               VerticalAlignment="Top" 
+                               Fill="Gray" />
+
+                    <TextBlock TextWrapping="WrapWholeWords"
+                               Margin="0,10,0,10"
+                               Width="400"
+                               Text="If you choose not to sign in, any information you add will only be available on this device and you will be unable to share your home with friends and family members."/>
+                </StackPanel>
+
+
+            </Grid>
+        </ContentDialog>
+    </Grid>
+</Page>

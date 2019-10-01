@@ -1,0 +1,70 @@
+﻿<Page
+    x:Class="Leaf.Windows.Views.Overview.Location"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Leaf.Windows.Views.Overview"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    xmlns:Maps="using:Windows.UI.Xaml.Controls.Maps"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid>
+        <StackPanel VerticalAlignment="Center" Visibility="Collapsed">
+
+            <Ellipse Name="MapImage"
+                             Height="100"
+                             Width="100">
+                <Ellipse.Fill>
+                    <ImageBrush Stretch="Fill" ImageSource="ms-appx:///Assets/Images/LocationImage.png"/>
+                </Ellipse.Fill>
+            </Ellipse>
+
+            <TextBlock x:Name="LocationHeader"
+                               x:Uid="SetUpPage-LocationHeader"
+                               Text=""
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
+                               FontSize="28"/>
+
+            <TextBlock x:Name="LocationBody"
+                               x:Uid="SetUpPage-LocationBody"
+                               Text=""
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"
+                               Margin="0,25,0,25"/>
+
+        </StackPanel>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="4*"/>
+                <RowDefinition Height="2*"/>
+
+            </Grid.RowDefinitions>
+            <Maps:MapControl x:Name="SetLocationMap"
+                             
+                                     Grid.Row="1"
+                                     ZoomLevel="20"
+                                     Height="500"
+                                     Width="1000"
+                                     MapTapped="SetLocationMap_MapTapped"
+                                     MapServiceToken="w0Liy8GfWh7QJ0Vf3oKS~eZWPKcr32Kuierg9o3MALA~ApX3gsxp_26GUpHCfebArqPRcl60jH-CA1xilc9CtbTivIOTJsb7UiWUfQPzWPrc"   
+                                     HorizontalAlignment="Center"/>
+
+            <StackPanel HorizontalAlignment="Center"
+                                Grid.Row="2">
+
+                <TextBlock x:Name="MapAddress"
+                               Text="{x:Bind _homesViewModel.SelectedHome.Location, Mode=TwoWay}"
+                               TextAlignment="Center"
+                               TextWrapping="Wrap"/>
+
+                <Button Name="SelectLocation_bt"    
+                        Content="Use this location"
+                        Click="SelectLocation_bt_Click"/>
+            </StackPanel>
+
+        </Grid>
+    </Grid>
+</Page>

@@ -1,0 +1,289 @@
+﻿<Page
+    x:Class="Leaf.Windows.Views.Lighting.DetailsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:Leaf.Windows.Views.Lighting"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+    <Grid Margin="20,40,0,0"
+          >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="120"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+
+        <Ellipse Name="SelectedColor"
+                 Height="100" Width="100"
+                 Grid.Row="0"
+                 Grid.Column="0"/>
+
+        <Image Height="80" Width="80"
+                                   Source="ms-appx:///Leaf.Shared/Images/Hue.png"/>
+
+        <Grid Grid.Row="0"
+              Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.ColumnSpan="2" 
+                        Orientation="Horizontal">
+                <TextBlock FontSize="22"
+                       Text="Device Settings"/>
+
+                <Button Name="EditSettings_bt"
+                        Height="35" Width="50"
+                        FontSize="20"
+                        Background="Transparent"
+                        Content="&#xE104;"
+                        Click="EditSettings_bt_Click"
+                        FontFamily="Segoe MDL2 Assets"/>
+            </StackPanel>
+
+
+            <TextBlock Grid.Row="2"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                       Margin="0,0,20,0"
+                   Text="Device Name:"/>
+
+            <HyperlinkButton Name="DeviceName_hb"
+                             Grid.Row="2"
+                             Grid.Column="1"
+                             Content="{x:Bind light.Name}"
+                             VerticalAlignment="Center"/>
+
+
+
+
+
+            <TextBlock Grid.Row="3"
+                   Grid.Column="0"
+                   VerticalAlignment="Center"
+                   Text="Location:"/>
+
+            <HyperlinkButton Name="DeviceLocation_hb"
+                         Grid.Row="3"
+                         Grid.Column="1"
+                         Content="{x:Bind light.Room}"
+                         VerticalAlignment="Center"/>
+        </Grid>
+
+        <Pivot Grid.Row="1"
+               Grid.ColumnSpan="2">
+
+            <PivotItem Name="Features"
+                           Header="Features">
+                <Grid>
+                    <StackPanel>
+                        <TextBlock Grid.Row="0"
+                                   Grid.ColumnSpan="2"
+                                   FontSize="22"
+                                   Text="Color"/>
+                        <Grid>
+                            <Viewbox Width="256" Height="256" x:Name="ColorSelectImageContainer">
+                                <Image Name="ColorSelectImage"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Tapped="ColorSelectImage_Tapped"
+                                       Source="ms-appx:///Leaf.Shared/Images/LightingColourPicker.png"/>
+
+                            </Viewbox>
+
+                            <Canvas Name="SelectorCanvas" Width="256" Height="256">
+                                <Grid Name="Pointer_gd">
+                                    <Ellipse  Name="ellipsePixelOne"
+                                          CanDrag="True"
+                                          Width="30" Height="30"
+                                          Stroke="Black"
+                                          Fill="White"/>
+                                    <Ellipse  Name="ellipsePixelTwo"
+                                          CanDrag="True"
+                                          Width="25" Height="25"
+                                          Stroke="Black"
+                                          Fill="White"/>
+                                    <Ellipse  Name="ellipsePixelThree"
+                                          CanDrag="True"
+                                          Width="20" Height="20"
+                                          Stroke="Black"
+                                          Fill="White"/>
+                                </Grid>
+
+
+
+                            </Canvas>
+                        </Grid>
+
+
+                        <TextBlock Grid.Row="0"
+                                   Grid.ColumnSpan="2"
+                                   FontSize="22"
+                                   Text="Brightness"/>
+
+                        <Slider Name="Brightness"
+                                Width="256"
+                                Value="100"
+                                
+                                />
+
+
+                    </StackPanel>
+                </Grid>
+            </PivotItem>
+
+            <PivotItem Name="Actions"
+                           Header="Actions">
+
+            </PivotItem>
+
+            <PivotItem Name="Details"
+                   Header="Details">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="20"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="20"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <!--<TextBlock FontSize="22"
+                                       Grid.ColumnSpan="3"
+                                       Text="Device Information"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="0"
+                                       Text="Category:"/>
+
+                    <TextBlock Grid.Row="2" Grid.Column="2"
+                                       Text="{x:Bind Light.Category}"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="0"
+                                       Text="Manufacturer:"/>
+
+                    <TextBlock Grid.Row="4" Grid.Column="2"
+                                       Text="{x:Bind Light.DeviceInformation.ManufacturerName}"/>
+
+                    <TextBlock Grid.Row="6" Grid.Column="0"
+                                       Text="Device Name:"/>
+
+                    <TextBlock Grid.Row="6" Grid.Column="2"
+                                       Text="{x:Bind Light.DeviceInformation.DeviceName}"/>
+
+                    <TextBlock Grid.Row="8" Grid.Column="0"
+                                       Text="Device Type:"/>
+
+                    <TextBlock Grid.Row="8" Grid.Column="2"
+                                       Text="{x:Bind Light.DeviceInformation.DeviceType}"/>
+
+                    <TextBlock Grid.Row="10" Grid.Column="0"
+                                       Text="Device Model:"/>
+
+                    <TextBlock Grid.Row="10" Grid.Column="2"
+                                       Text="{x:Bind Light.DeviceInformation.DeviceModel}"/>
+
+                    <TextBlock Grid.Row="12" Grid.Column="0"
+                                       Text="Website:"/>
+
+                    <HyperlinkButton Name="Website_hb"
+                                     Grid.Row="12" Grid.Column="2"
+                                     Foreground="{x:Bind Light.LightColour.Brush}"
+                                     Content="{x:Bind Light.Location}"
+                                     VerticalAlignment="Top"/>-->
+
+                </Grid>
+            </PivotItem>
+
+        </Pivot>
+
+        <ContentDialog x:Name="EditDeviceSettings" 
+                       PrimaryButtonText="save"
+                       SecondaryButtonText="cancel"
+                       VerticalAlignment="Center"
+                       Grid.RowSpan="2"
+                       Grid.ColumnSpan="2"
+                       >
+
+            <ContentDialog.TitleTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="ms-appx:///Assets/Images/LeafLogo.png" Width="40" Height="40" />
+                        <TextBlock Text="Edit Settings"
+                                   VerticalAlignment="Center"
+                                   Margin="10"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ContentDialog.TitleTemplate>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="16"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Row="0"
+                           VerticalAlignment="Center"
+                           Text="Device Name:"/>
+
+                <TextBox Name="DeviceName_tb"
+                         Grid.Row="0"
+                         Grid.Column="1"
+                         Width="150" Height="30"
+                         VerticalAlignment="Center"
+                         HorizontalAlignment="Right"
+                         Text="Lamp" />
+
+                <TextBlock Grid.Row="2"
+                           Grid.Column="0"
+                           VerticalAlignment="Center"
+                           Text="Location:"/>
+
+                <ComboBox Name="DeviceLocation_cb"
+                  Grid.Row="2"
+                  Grid.Column="1"
+                  Width="150" Height="30"
+                  VerticalAlignment="Center"
+                      HorizontalAlignment="Right">
+                    <ComboBoxItem Name="LivingRoom" IsSelected="True">Living Room</ComboBoxItem>
+                    <ComboBoxItem Name="DiningRoom">Dining Room</ComboBoxItem>
+                    <ComboBoxItem Name="Kitchen">Kitchen</ComboBoxItem>
+                    <ComboBoxItem Name="Bedroom">Bedroom</ComboBoxItem>
+                </ComboBox>
+            </Grid>
+        </ContentDialog>
+
+    </Grid>
+</Page>
